@@ -1,0 +1,13 @@
+{
+  "API": "https://<>.search.windows.net/indexers?api-version=2019-05-06",
+  "name": "<replace with your indexer name>",
+  "description": null,
+  "dataSourceName": "<replace with your datasourceName>",
+  "skillsetName": null,
+  "targetIndexName": "<replace with your index name>",
+  "parameters": { "configuration": { "assumeOrderByHighWaterMarkColumn": true } },
+  "schedule": {
+    "interval": "PT5M",
+    "startTime": "2019-06-01T18:30:00Z"
+  }
+}

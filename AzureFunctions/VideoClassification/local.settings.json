@@ -1,0 +1,15 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=talentprostorage;AccountKey=mx6IxmG1jsVkK1MiWkaVmlQDqB9ww/4geoiGYMO2wyhcct4pFiJHV0Lk9QJ9AIFBVv+uve8cHG8HI9xy5kKQYg==",
+    "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=talentprostorage;AccountKey=mx6IxmG1jsVkK1MiWkaVmlQDqB9ww/4geoiGYMO2wyhcct4pFiJHV0Lk9QJ9AIFBVv+uve8cHG8HI9xy5kKQYg==",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "apiUrl": "https://api.videoindexer.ai",
+    "apiLocation": "westus2",
+    "apiKey": "a86ee49272664e9f8ca359b71a2c26a0",
+    "CosmosEndoint": "https://talentprocosmos.documents.azure.com:443/",
+    "CosmosPrimaryKey": "pl0pJW040A9j56Ubdwkac7IsHcFvtNSoMbqWKUQWtFOPAsT5v6tNlTPuvuC9FDXNadjgwySgvId52jDXv7raqg==",
+    "CosmosDatabase": "ResumeDB",
+    "CosmosCollection": "VideoContainer"
+  }
+}

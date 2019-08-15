@@ -1,0 +1,26 @@
+﻿@using TalentProWebApp.Controllers
+@if (Request.IsAuthenticated)
+{
+    <text>
+        <ul class="nav navbar-nav navbar-right">
+            <li>               
+                @Html.ActionLink("Welcome " + AccountController.GetUserName(), "", null, new { href = "#" });
+            </li>
+            <li>
+                @Html.ActionLink("Sign-Out", "SignOut", "Account", null, new { @class = "menu-content" })
+            </li>
+        </ul>
+    </text>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="menu-content">Sign In</a>
+            <ul>
+                <li>@Html.ActionLink("Microsoft Account", "SignIn", "Account", null , new { @class = "menu-content" })</li>
+            </ul>
+        </li>
+    </ul>
+
+}

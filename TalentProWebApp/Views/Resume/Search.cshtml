@@ -1,0 +1,85 @@
+﻿@model IEnumerable<TalentProWebApp.Models.DocumentModel>
+@using TalentProWebApp.Controllers
+@{
+    Layout = "~/Views/Shared/_LayoutResume.cshtml";
+    ViewBag.Title = "Talent Pro- Search";
+}
+    <title>Talent Pro - Search in Documents</title>
+<br />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+@using (Html.BeginForm("Search", "Resume", FormMethod.Get))
+{
+    //the following are search options
+    @*<b> Search Option: </b>@Html.RadioButton("option", "Name") <text>Name</text> @Html.RadioButton("option", "Gender") <text> Gender </text>
+        @Html.RadioButton("option", "Subjects")<text>Subject</text>*@
+    @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search"/>
+}
+
+<br />
+
+<div ng-controller="appController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-pull-1">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>Picture</td>
+                            <td>Document Name</td>
+                            <td>Predicted Candidate Name</td>
+                            <td>KeyPhrases</td>
+                            <td>Download</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr data-ng-repeat="row in tableRows track by $index">
+                                <td>
+                                    @{string urlPath = @ResumeController.FindImagewithPersonTag(item.imageAnalyses);}
+                                    @if (urlPath == null)
+                                    {
+                                        urlPath = @Url.Content("~/Content/Photos/NoimageAvailable.jpg");
+                                    }
+                                    <img src="@urlPath" height="60" width="60">
+                                </td>
+                                <td> @item.DocumentName</td>
+                                <td>
+                                    @{string name = @ResumeController.FindPersonName(item.EntityRecordslist);}
+                                    @if (name == null)
+                                    {
+                                        name = "Name couldn't be identified";
+                                    }
+                                    @name
+                                </td>
+                                <td> <font style="font-size:12px;">@String.Join(",", item.keys.Take(20)); </font></td>
+
+                                <td>
+                                    @using (Html.BeginForm("Download", "Resume", FormMethod.Post))
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="hidden" name="fileURL" value="@item.DocumentUri" />
+                                                <input type="submit" value="Download Resume" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    }
+                                </td>                          
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (ViewBag.totalRemainingPageSize > 1)
+        {
+            @Html.ActionLink("Next Page", "Search", "Resume", new { pageNo = ViewBag.pageNo + 1 },null)
+        }
+    </div>
+    
+</div>
+
+
+
+

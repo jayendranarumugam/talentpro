@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TalentProWebApp.Models.VideoModel>
+@{
+    Layout = "~/Views/Shared/_LayoutVideoIndexer.cshtml";
+    ViewBag.Title = "Search";
+}
+<title>Talent Pro - Search in Videos</title>
+<br />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+@using (Html.BeginForm("Search", "Video", FormMethod.Get))
+{
+    //the following are search options
+    @*<b> Search Option: </b>@Html.RadioButton("option", "Name") <text>Name</text> @Html.RadioButton("option", "Gender") <text> Gender </text>
+        @Html.RadioButton("option", "Subjects")<text>Subject</text>*@
+    @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search" />
+}
+
+<br />
+
+@foreach (var item in Model)
+{
+    var embedVideo = @AzVideoIndexer.GetEmbeddedDetailsAsync(item);
+
+
+    <iframe width="700" height="500" src=@embedVideo.playerURL frameborder="0" allowfullscreen></iframe>
+    <iframe width="700" height="500" src=@embedVideo.InsightURL frameborder="0" allowfullscreen></iframe>
+    <script src="https://breakdown.blob.core.windows.net/public/vb.widgets.mediator.js"></script>
+    <br />
+    <br />
+}
+@if (ViewBag.VideototalRemainingPageSize > 1)
+{
+    @Html.ActionLink("Next Page", "Search", "Video", new { pageNo = ViewBag.VideopageNo + 1 }, null)
+}
