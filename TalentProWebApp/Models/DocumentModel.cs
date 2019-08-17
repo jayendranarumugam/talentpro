@@ -15,14 +15,19 @@ namespace TalentProWebApp.Models
         [JsonIgnore]
         public string ProfilePic { get; set; }
 
-        //[JsonIgnore]
+
         public List<EntityRecord> EntityRecordslist { get; set; }
 
-        //[JsonIgnore]
         public List<CognitiveImageAnalysis> imageAnalyses { get; set; }
 
-        //[JsonIgnore]
-        //public List<CognitiveImageTextAnalysis> imageTextAnalyses { get; set; }
+        [JsonProperty(PropertyName = "@search.highlights")]
+        public SearchHighLights searchHighLights { get; set; }
     }
-   
+
+    public class SearchHighLights
+    {
+        public List<string> keys { get; set; }
+    }
+
+
 }

@@ -98,7 +98,7 @@ namespace TalentProWebApp.Controllers
             LOGGER.Info("Search Document link called by " + email +"parameters are "+search+"page number "+pageNo );
 
 
-            AzSearchModel azSearchModel = new AzSearchModel { search = search, skip = pageNo* pageSize, top = pageSize };
+            AzSearchModel azSearchModel = new AzSearchModel { search = search, skip = pageNo* pageSize, top = pageSize, highlightPostTag="</b>",highlightPreTag= "<b>", highlight= "keys" };
 
             var items = await GetAzureSearchResults.GetDocListAsync<DocumentModel>(azSearchModel);
 
@@ -118,14 +118,36 @@ namespace TalentProWebApp.Controllers
             return url;
         }
 
-        public static string FindPersonName (List<EntityRecord> entityRecords)
+
+        public static string FindDetails(List<EntityRecord> entityRecords, ExtractType extractType)
         {
-            string name=entityRecords.Where(a => a.Type == "Person").FirstOrDefault()?.Name;
-            if (name != null)
+            string value = "";
+
+            switch (extractType)
             {
-                name=name.Substring(0, name.Length > 15 ? 15 : name.Length);
+                case ExtractType.Name:
+                    string name = entityRecords.Where(a => a.Type == "Person").FirstOrDefault()?.Name;
+                    if (name != null)
+                    {
+                        value = name.Substring(0, name.Length > 20 ? 20 : name.Length);
+                    }
+                    break;
+
+                case ExtractType.Email:
+                    value = entityRecords.Where(a => a.Type == "Email" && a.WikipediaUrl == null).FirstOrDefault()?.Name;
+                    break;
+
+                case ExtractType.Phone:
+                    List<string> numberList = entityRecords.Where(a => a.Type == "Quantity" && a.SubType == "Number").Select(a => a.Name).ToList();
+                    value = numberList.Where(a => a.Length >= 10).FirstOrDefault();
+                    break;
+
+
             }
-            return name;
+
+
+
+            return value;
         }
     }
 }

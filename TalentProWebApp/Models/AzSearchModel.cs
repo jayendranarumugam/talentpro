@@ -13,6 +13,7 @@ namespace TalentProWebApp.Models
         public bool count { get; set; } = true;
         public int skip { get; set; }
         public int top { get; set; }
+        public string highlight { get; set; }
 
     }
 

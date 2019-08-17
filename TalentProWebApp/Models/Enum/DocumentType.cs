@@ -16,4 +16,12 @@ namespace TalentProWebApp.Models
         Resume=1,
         Others=2
     }
+
+    public enum ExtractType
+    {
+        Name,
+        Email,
+        LinkedIn,
+        Phone
+    }
 }
