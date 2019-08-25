@@ -142,6 +142,11 @@ namespace TalentProWebApp.Controllers
                     value = numberList.Where(a => a.Length >= 10).FirstOrDefault();
                     break;
 
+                case ExtractType.LinkedIn:
+                    List<string> urlList = entityRecords.Where(a => a.Type == "URL").Select(a => a.Name).ToList();
+                    value = urlList.Where(a => a.Contains("linkedin")).FirstOrDefault();
+                    break;
+
 
             }
 

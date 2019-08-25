@@ -36,8 +36,9 @@
                         <th class="text-center">Document Name</th>
                         <th class="text-center">Predicted Candidate Name</th>
                         <th class="text-center">KeyPhrases</th>
-                        <th class="text-center">Predcited Email</th>
-                        <th class="text-center">Predcited Phone</th>
+                        <th class="text-center">Pred Email</th>
+                        <th class="text-center">Pred Phone</th>
+                        <th class="text-center">Pred LinkedIn URL</th>
                         <th class="text-center">Download</th>
                     </tr>
                 </thead>
@@ -83,8 +84,14 @@
                                 phone = "Phone couldn't be identified";
                             }
                             @phone
-
-
+                        </td>
+                        <td>
+                            @{string linkedIn = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.LinkedIn);}
+                            @if (linkedIn == null)
+                            {
+                                linkedIn = "in Couldn't be Identified";
+                            }
+                            @linkedIn
                         </td>
                         <td style="width:10%; white-space: nowrap;">
                             @using (Html.BeginForm("Download", "Resume", FormMethod.Post))
