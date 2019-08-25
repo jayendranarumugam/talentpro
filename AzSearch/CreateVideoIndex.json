@@ -1,0 +1,133 @@
+{
+  "API": "https://<>.search.windows.net/indexes?api-version=2019-05-06",
+  "name": "<replace with your index name>",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Edm.String",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": true,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "accountId",
+      "type": "Edm.String",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "video",
+      "type": "Collection(Edm.ComplexType)",
+      "fields": [
+        {
+          "name": "insights",
+          "type": "Edm.ComplexType",
+          "fields": [
+            {
+              "name": "transcript",
+              "type": "Collection(Edm.ComplexType)",
+              "fields": [
+                {
+                  "name": "text",
+                  "type": "Edm.String",
+                  "searchable": true,
+                  "filterable": false,
+                  "retrievable": false,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": "en.microsoft",
+                  "synonymMaps": []
+                }
+              ]
+            },
+            {
+              "name": "ocr",
+              "type": "Collection(Edm.ComplexType)",
+              "fields": [
+                {
+                  "name": "text",
+                  "type": "Edm.String",
+                  "searchable": true,
+                  "filterable": false,
+                  "retrievable": false,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": "en.microsoft",
+                  "synonymMaps": []
+                }
+              ]
+            },
+            {
+              "name": "keywords",
+              "type": "Collection(Edm.ComplexType)",
+              "fields": [
+                {
+                  "name": "text",
+                  "type": "Edm.String",
+                  "searchable": true,
+                  "filterable": false,
+                  "retrievable": false,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": "en.microsoft",
+                  "synonymMaps": []
+                }
+              ]
+            },
+            {
+              "name": "labels",
+              "type": "Collection(Edm.ComplexType)",
+              "fields": [
+                {
+                  "name": "name",
+                  "type": "Edm.String",
+                  "searchable": true,
+                  "filterable": false,
+                  "retrievable": false,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": "en.microsoft",
+                  "synonymMaps": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoringProfiles": [],
+  "corsOptions": null,
+  "suggesters": [],
+  "analyzers": [],
+  "tokenizers": [],
+  "tokenFilters": [],
+  "charFilters": []
+}

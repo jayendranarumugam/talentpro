@@ -1,0 +1,126 @@
+﻿@using TalentProWebApp.Models
+@using TalentProWebApp.Controllers
+@model IEnumerable<TalentProWebApp.Models.DocumentModel>
+@{
+    Layout = "~/Views/Shared/_LayoutResume.cshtml";
+}
+<title>Talent Pro - Search Candidates</title>
+<head>
+
+    <style>
+        .container-fluid {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<br />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+@using (Html.BeginForm("Search", "Resume", FormMethod.Get))
+{
+    //the following are search options
+    @*<b> Search Option: </b>@Html.RadioButton("option", "Name") <text>Name</text> @Html.RadioButton("option", "Gender") <text> Gender </text>
+        @Html.RadioButton("option", "Subjects")<text>Subject</text>*@
+    @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search" />
+}
+
+<br />
+
+<div ng-controller="appController">
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Picture</th>
+                        <th class="text-center">Document Name</th>
+                        <th class="text-center">Predicted Candidate Name</th>
+                        <th class="text-center">KeyPhrases</th>
+                        <th class="text-center">Pred Email</th>
+                        <th class="text-center">Pred Phone</th>
+                        <th class="text-center">Pred LinkedIn URL</th>
+                        <th class="text-center">Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr data-ng-repeat="row in tableRows track by $index">
+                        <td>
+                            @{string urlPath = @ResumeController.FindImagewithPersonTag(item.imageAnalyses);}
+                            @if (urlPath == null)
+                            {
+                                urlPath = @Url.Content("~/Content/Photos/NoimageAvailable.jpg");
+                            }
+                            <img src="@urlPath" height="60" width="60">
+                        </td>
+                        <td> @item.DocumentName</td>
+                        <td style="width:40%; white-space: initial;">
+                            @{string name = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Name);}
+                            @if (name == null)
+                            {
+                                name = "Name couldn't be identified";
+                            }
+                            @name
+                        </td>
+                        <td style="width:100%; white-space: initial;"> <font style="font-size:12px;">@String.Join(",", item.keys.Take(20)); </font></td>
+
+
+                        <td style="width:0.1%; white-space: nowrap;">
+                            @{string email = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Email);}
+                            @if (email == null)
+                            {
+                                email = "Email couldn't be identified";
+                            }
+                            @email
+
+
+                        </td>
+
+                        <td style="width:0.1%; white-space: nowrap;">
+                            @{string phone = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Phone);}
+                            @if (phone == null)
+                            {
+                                phone = "Phone couldn't be identified";
+                            }
+                            @phone
+                        </td>
+                        <td>
+                            @{string linkedIn = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.LinkedIn);}
+                            @if (linkedIn == null)
+                            {
+                                linkedIn = "in Couldn't be Identified";
+                            }
+                            @linkedIn
+                        </td>
+                        <td style="width:10%; white-space: nowrap;">
+                            @using (Html.BeginForm("Download", "Resume", FormMethod.Post))
+                            {
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-11">
+                                        <input type="hidden" name="fileURL" value="@item.DocumentUri" />
+                                        <input type="submit" value="Download Resume" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            }
+                        </td>
+
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (ViewBag.totalRemainingPageSize > 1)
+        {
+            @Html.ActionLink("Next Page", "Search", "Resume", new { pageNo = ViewBag.pageNo + 1 }, null)
+        }
+    </div>
+
+</div>
+
+
+
+

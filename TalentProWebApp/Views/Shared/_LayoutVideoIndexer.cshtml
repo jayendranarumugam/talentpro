@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            @Html.Partial("_LoginPartial")
+            <div class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
+                    <li>  @Html.ActionLink("Home", "Index", "Home", null, new { @class = "menu-content" })</li>
+                    <li>  @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "menu-content" })</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="@Url.Action("Index","Video")">Video Analyser</a>
+            </li>
+            <li>
+                <a href="@Url.Action("UploadVideo","Video")">Upload Video</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Search","Video")">Search in Videos</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Home")">Exit Video Analyser</a>
+            </li>
+        </ul>
+    </div>
+    <div class="header">
+        <br />
+        <img src="../Content/Photos/aiforgood.jpg" alt="ey" height="180" />
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+</body>
+</html>

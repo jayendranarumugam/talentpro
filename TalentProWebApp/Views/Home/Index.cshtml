@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Talent Pro - Home</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        /* Create three equal columns that sits next to each other */
+        .column {
+            flex: 33.33%;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    @if (Request.IsAuthenticated)
+    {
+        <div id="parent_div" style="position:relative;">
+            <div class="bg-img" filter: style="position:absolute;top:0;left:0;right:0;bottom:0;filter:blur(3px);z-index:-1;"></div>
+            <div id="textarea">
+                <div class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        @Html.Partial("_LoginPartial")
+                        <div class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav">
+                                <li>  @Html.ActionLink("Home", "Index", "Home", null, new { @class = "menu-content" })</li>
+                                <li>  @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "menu-content" })</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="header">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    @*<img src="../Content/Photos/aiforgood.jpg" alt="ey" height="180" />*@
+                </div>
+                <br />
+
+
+                <div class="row">
+                    <div class="column">
+                        <a href='@Url.Action("Index", "Resume")'><img src="../Content/Photos/AI_Recruitment.jpg" class="img-thumbnail" style="border-color:red;" height="250" width="350" align="middle"></a>
+                    </div>
+                    <div class="column">
+                        <a href='@Url.Action("Index", "Video")'><img src="../Content/Photos/Videindexer.jpg" class="img-thumbnail" style="border-color:red;" height="250" width="350" align="middle"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="bg-img">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    @Html.Partial("_LoginPartial")
+                    <div class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li>  @Html.ActionLink("Home", "Index", "Home", null, new { @class = "menu-content" })</li>
+                            <li>  @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "menu-content" })</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

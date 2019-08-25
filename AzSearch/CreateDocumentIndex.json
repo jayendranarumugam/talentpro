@@ -1,0 +1,316 @@
+{
+  "API": "https://<>.search.windows.net/indexes?api-version=2019-05-06",
+
+  "name": "<replace with your index name>",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Edm.String",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": true,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "DocumentName",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": "en.microsoft",
+      "synonymMaps": []
+    },
+    {
+      "name": "DocumentUri",
+      "type": "Edm.String",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "imageDetails",
+      "type": "Collection(Edm.String)",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "EntityRecordslist",
+      "type": "Collection(Edm.ComplexType)",
+      "fields": [
+        {
+          "name": "name",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "matches",
+          "type": "Collection(Edm.ComplexType)",
+          "fields": [
+            {
+              "name": "text",
+              "type": "Edm.String",
+              "searchable": false,
+              "filterable": false,
+              "retrievable": true,
+              "sortable": false,
+              "facetable": false,
+              "key": false,
+              "indexAnalyzer": null,
+              "searchAnalyzer": null,
+              "analyzer": null,
+              "synonymMaps": []
+            },
+            {
+              "name": "offset",
+              "type": "Edm.Int64",
+              "searchable": false,
+              "filterable": false,
+              "retrievable": true,
+              "sortable": false,
+              "facetable": false,
+              "key": false,
+              "indexAnalyzer": null,
+              "searchAnalyzer": null,
+              "analyzer": null,
+              "synonymMaps": []
+            },
+            {
+              "name": "length",
+              "type": "Edm.Int64",
+              "searchable": false,
+              "filterable": false,
+              "retrievable": true,
+              "sortable": false,
+              "facetable": false,
+              "key": false,
+              "indexAnalyzer": null,
+              "searchAnalyzer": null,
+              "analyzer": null,
+              "synonymMaps": []
+            }
+          ]
+        },
+        {
+          "name": "wikipediaLanguage",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "wikipediaId",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "wikipediaUrl",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "bingId",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "type",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "subType",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        }
+      ]
+    },
+    {
+      "name": "imageAnalyses",
+      "type": "Collection(Edm.ComplexType)",
+      "fields": [
+        {
+          "name": "imageURL",
+          "type": "Edm.String",
+          "searchable": false,
+          "filterable": false,
+          "retrievable": true,
+          "sortable": false,
+          "facetable": false,
+          "key": false,
+          "indexAnalyzer": null,
+          "searchAnalyzer": null,
+          "analyzer": null,
+          "synonymMaps": []
+        },
+        {
+          "name": "imageAnalysis",
+          "type": "Edm.ComplexType",
+          "fields": [
+            {
+              "name": "tags",
+              "type": "Collection(Edm.ComplexType)",
+              "fields": [
+                {
+                  "name": "name",
+                  "type": "Edm.String",
+                  "searchable": false,
+                  "filterable": false,
+                  "retrievable": true,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": null,
+                  "synonymMaps": []
+                }
+              ]
+            },
+            {
+              "name": "description",
+              "type": "Edm.ComplexType",
+              "fields": [
+                {
+                  "name": "tags",
+                  "type": "Collection(Edm.String)",
+                  "searchable": false,
+                  "filterable": false,
+                  "retrievable": true,
+                  "sortable": false,
+                  "facetable": false,
+                  "key": false,
+                  "indexAnalyzer": null,
+                  "searchAnalyzer": null,
+                  "analyzer": null,
+                  "synonymMaps": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "imageTextAnalyses",
+      "type": "Collection(Edm.String)",
+      "searchable": false,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": null,
+      "synonymMaps": []
+    },
+    {
+      "name": "keys",
+      "type": "Collection(Edm.String)",
+      "searchable": true,
+      "filterable": false,
+      "retrievable": true,
+      "sortable": false,
+      "facetable": false,
+      "key": false,
+      "indexAnalyzer": null,
+      "searchAnalyzer": null,
+      "analyzer": "en.microsoft",
+      "synonymMaps": []
+    }
+  ],
+  "scoringProfiles": [],
+  "corsOptions": null,
+  "suggesters": [],
+  "analyzers": [],
+  "tokenizers": [],
+  "tokenFilters": [],
+  "charFilters": []
+}
