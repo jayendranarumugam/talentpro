@@ -12,6 +12,12 @@
             margin-left: 100px;
         }
     </style>
+
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.autocompleteInline.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.autocompleteInline.js"></script>
 </head>
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -19,11 +25,57 @@
 {
     //the following are search options
     @*<b> Search Option: </b>@Html.RadioButton("option", "Name") <text>Name</text> @Html.RadioButton("option", "Gender") <text> Gender </text>
-        @Html.RadioButton("option", "Subjects")<text>Subject</text>*@
-    @Html.TextBox("search")
-    <input type="submit" name="submit" value="Search" />
+            @Html.RadioButton("option", "Subjects")<text>Subject</text>
+        @Html.TextBox("search")*@
+    <div class="searchBoxForm hide-autocomplete-dropdown">
+        <input type="text" id="example3" name="search" placeholder="Search">
+        <input type="submit" name="submit" value="Search">
+    </div>
 }
+<script>
+    $(function () {
+        // using modified jQuery Autocomplete plugin v1.2.6 http://xdsoft.net/jqplugins/autocomplete/
+        // $.autocomplete -> $.autocompleteInline
+        $("#example3").autocompleteInline({
+            appendMethod: "replace",
+            source: [
+                function (text, add) {
+                    if (!text) {
+                        return;
+                    }
 
+                    $.getJSON("/Resume/autocomplete?term=" + text, function (data) {
+                        if (data && data.length > 0) {
+                            currentSuggestion3 = data[0];
+                            add(data);
+                        }
+                    });
+                }
+            ]
+        });
+
+        // complete on TAB and clear on ESC
+        $("#example3").keydown(function (evt) {
+            if (evt.keyCode === 9 /* TAB */ && currentSuggestion3) {
+                $("#example3").val(currentSuggestion3);
+                return false;
+            } else if (evt.keyCode === 27 /* ESC */) {
+                currentSuggestion3 = "";
+                $("#example3").val("");
+            }
+        });
+
+        //$("#example3").autocomplete({
+        //    html: true,
+        //    source: "/Resume/suggest?highlights=false&fuzzy=false&",
+        //    minLength: 2,
+        //    position: {
+        //        my: "left top",
+        //        at: "left-23 bottom+10"
+        //    }
+        //});
+    });
+</script>
 <br />
 
 <div ng-controller="appController">
@@ -45,69 +97,69 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr data-ng-repeat="row in tableRows track by $index">
-                        <td>
-                            @{string urlPath = @ResumeController.FindImagewithPersonTag(item.imageAnalyses);}
-                            @if (urlPath == null)
-                            {
-                                urlPath = @Url.Content("~/Content/Photos/NoimageAvailable.jpg");
-                            }
-                            <img src="@urlPath" height="60" width="60">
-                        </td>
-                        <td> @item.DocumentName</td>
-                        <td style="width:40%; white-space: initial;">
-                            @{string name = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Name);}
-                            @if (name == null)
-                            {
-                                name = "Name couldn't be identified";
-                            }
-                            @name
-                        </td>
-                        <td style="width:100%; white-space: initial;"> <font style="font-size:12px;">@String.Join(",", item.keys.Take(20)); </font></td>
+                        <tr data-ng-repeat="row in tableRows track by $index">
+                            <td>
+                                @{string urlPath = @ResumeController.FindImagewithPersonTag(item.imageAnalyses);}
+                                @if (urlPath == null)
+                                {
+                                    urlPath = @Url.Content("~/Content/Photos/NoimageAvailable.jpg");
+                                }
+                                <img src="@urlPath" height="60" width="60">
+                            </td>
+                            <td> @item.DocumentName</td>
+                            <td style="width:40%; white-space: initial;">
+                                @{string name = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Name);}
+                                @if (name == null)
+                                {
+                                    name = "Name couldn't be identified";
+                                }
+                                @name
+                            </td>
+                            <td style="width:100%; white-space: initial;"> <font style="font-size:12px;">@String.Join(",", item.keys.Take(20)); </font></td>
 
 
-                        <td style="width:0.1%; white-space: nowrap;">
-                            @{string email = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Email);}
-                            @if (email == null)
-                            {
-                                email = "Email couldn't be identified";
-                            }
-                            @email
+                            <td style="width:0.1%; white-space: nowrap;">
+                                @{string email = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Email);}
+                                @if (email == null)
+                                {
+                                    email = "Email couldn't be identified";
+                                }
+                                @email
 
 
-                        </td>
+                            </td>
 
-                        <td style="width:0.1%; white-space: nowrap;">
-                            @{string phone = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Phone);}
-                            @if (phone == null)
-                            {
-                                phone = "Phone couldn't be identified";
-                            }
-                            @phone
-                        </td>
-                        <td>
-                            @{string linkedIn = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.LinkedIn);}
-                            @if (linkedIn == null)
-                            {
-                                linkedIn = "in Couldn't be Identified";
-                            }
-                            @linkedIn
-                        </td>
-                        <td style="width:10%; white-space: nowrap;">
-                            @using (Html.BeginForm("Download", "Resume", FormMethod.Post))
-                            {
-                                <div class="form-group">
-                                    <div class="col-md-offset-1 col-md-11">
-                                        <input type="hidden" name="fileURL" value="@item.DocumentUri" />
-                                        <input type="submit" value="Download Resume" class="btn btn-primary" />
+                            <td style="width:0.1%; white-space: nowrap;">
+                                @{string phone = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.Phone);}
+                                @if (phone == null)
+                                {
+                                    phone = "Phone couldn't be identified";
+                                }
+                                @phone
+                            </td>
+                            <td>
+                                @{string linkedIn = @ResumeController.FindDetails(item.EntityRecordslist, ExtractType.LinkedIn);}
+                                @if (linkedIn == null)
+                                {
+                                    linkedIn = "in Couldn't be Identified";
+                                }
+                                @linkedIn
+                            </td>
+                            <td style="width:10%; white-space: nowrap;">
+                                @using (Html.BeginForm("Download", "Resume", FormMethod.Post))
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-offset-1 col-md-11">
+                                            <input type="hidden" name="fileURL" value="@item.DocumentUri" />
+                                            <input type="submit" value="Download Resume" class="btn btn-primary" />
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        </td>
+                                }
+                            </td>
 
 
 
-                    </tr>
+                        </tr>
                     }
                 </tbody>
             </table>
