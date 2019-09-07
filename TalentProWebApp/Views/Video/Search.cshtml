@@ -4,17 +4,66 @@
     ViewBag.Title = "Search";
 }
 <title>Talent Pro - Search in Videos</title>
+<head>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery.autocompleteInline.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.autocompleteInline.js"></script>
+</head>
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 @using (Html.BeginForm("Search", "Video", FormMethod.Get))
 {
-    //the following are search options
-    @*<b> Search Option: </b>@Html.RadioButton("option", "Name") <text>Name</text> @Html.RadioButton("option", "Gender") <text> Gender </text>
-        @Html.RadioButton("option", "Subjects")<text>Subject</text>*@
-    @Html.TextBox("search")
-    <input type="submit" name="submit" value="Search" />
+    <div class="searchBoxForm hide-autocomplete-dropdown">
+        <input type="text" id="example3" name="search" placeholder="Search">
+        <input type="submit" name="submit" value="Search">
+    </div>
 }
+<script>
+    $(function () {
+        // using modified jQuery Autocomplete plugin v1.2.6 http://xdsoft.net/jqplugins/autocomplete/
+        // $.autocomplete -> $.autocompleteInline
+        $("#example3").autocompleteInline({
+            appendMethod: "replace",
+            source: [
+                function (text, add) {
+                    if (!text) {
+                        return;
+                    }
 
+                    $.getJSON("/Video/autocomplete?term=" + text, function (data) {
+                        if (data && data.length > 0) {
+                            currentSuggestion3 = data[0];
+                            add(data);
+                        }
+                    });
+                }
+            ]
+        });
+
+        // complete on TAB and clear on ESC
+        $("#example3").keydown(function (evt) {
+            if (evt.keyCode === 9 /* TAB */ && currentSuggestion3) {
+                $("#example3").val(currentSuggestion3);
+                return false;
+            } else if (evt.keyCode === 27 /* ESC */) {
+                currentSuggestion3 = "";
+                $("#example3").val("");
+            }
+        });
+
+        //$("#example3").autocomplete({
+        //    html: true,
+        //    source: "/Resume/suggest?highlights=false&fuzzy=false&",
+        //    minLength: 2,
+        //    position: {
+        //        my: "left top",
+        //        at: "left-23 bottom+10"
+        //    }
+        //});
+    });
+</script>
 <br />
 
 @foreach (var item in Model)

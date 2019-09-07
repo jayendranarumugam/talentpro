@@ -308,7 +308,13 @@
   ],
   "scoringProfiles": [],
   "corsOptions": null,
-  "suggesters": [],
+  "suggesters": [
+    {
+      "name": "suggesters",
+      "searchMode": "analyzingInfixMatching",
+      "sourceFields": [ "keys", "DocumentName" ]
+    }
+  ],
   "analyzers": [],
   "tokenizers": [],
   "tokenFilters": [],

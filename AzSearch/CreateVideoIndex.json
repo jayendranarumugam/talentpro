@@ -125,7 +125,16 @@
   ],
   "scoringProfiles": [],
   "corsOptions": null,
-  "suggesters": [],
+  "suggesters": [
+    {
+      "name": "suggestor",
+      "searchMode": "analyzingInfixMatching",
+      "sourceFields": [
+        "video/insights/transcript/text",
+        "video/insights/keywords/text"
+      ]
+    }
+  ],
   "analyzers": [],
   "tokenizers": [],
   "tokenFilters": [],
